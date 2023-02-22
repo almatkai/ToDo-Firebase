@@ -10,9 +10,17 @@ import Firebase
 
 struct Task: Identifiable, Decodable{
     @DocumentID var id: String?
-    let text: String
+    var text: String
     let timestamp: Timestamp
     let uid: String
-    let priority: String
-    let isComplete: Bool
+    var priority: String
+    var isComplete: Bool
+    var deadline: Date
+}
+
+class TaskClass: Identifiable {
+    var title = ""
+    var priority = "medium"
+    var timestamp: Timestamp = Timestamp(date: Date())
+    var deadline: Date = Date.now
 }

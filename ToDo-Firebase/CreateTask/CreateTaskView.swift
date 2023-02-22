@@ -7,17 +7,6 @@
 
 import SwiftUI
 
-enum Priority: String, CaseIterable {
-    case low = "low"
-    case medium = "medium"
-    case high = "high"
-}
-class TaskClass: Identifiable {
-    var title = ""
-    var priority = Priority.medium
-    var date: Date = Date.now
-}
-
 struct CreateTaskView: View {
     //Date Picker
     static let calendar = Calendar(identifier: .gregorian)
@@ -27,6 +16,8 @@ struct CreateTaskView: View {
     @ObservedObject var taskViewModel = CreateTaskViewModel()
     ///
     @State var task = TaskClass()
+    
+    @State var taskTitle = ""
     @State var subtask = ""
     
     private func priorityBackground(_ priority: String) -> Color {
@@ -45,17 +36,14 @@ struct CreateTaskView: View {
     var body: some View {
         VStack {
             HStack{
-                TextField("Enter note", text: $task.title, axis: .vertical)
+                TextField("Enter note", text: $taskTitle, axis: .vertical)
                     .textFieldStyle(.plain)
                     .font(.system(size: 20))
                     .padding()
                 Picker("Priority", selection: $task.priority) {
-                    ForEach(Priority.allCases, id: \.self) { priority in
-                        Text(priority.rawValue)
-                            .font(.system(size:14))
-                            .foregroundColor(priorityBackground(priority.rawValue))
-                    }
-                    .fontWeight(.bold)
+                    Text("low").tag("low").foregroundColor(.gray).font(.system(size:14)).fontWeight(.bold)
+                    Text("medium").tag("medium").foregroundColor(.yellow).font(.system(size:14)).fontWeight(.bold)
+                    Text("high").tag("high").foregroundColor(.red).font(.system(size:14)).fontWeight(.bold)
                     
                 }.pickerStyle(.wheel)
                     .frame(width: 100, height: 120)
@@ -63,15 +51,16 @@ struct CreateTaskView: View {
                     .font(.headline)
             }
             HStack{
-                DatePicker("", selection: $task.date)
+                DatePicker("", selection: $task.deadline)
                     .environment(\.locale, Self.locale)
                     .environment(\.calendar, Self.calendar)
                 Button(action: {
 //                    presentationMode.wrappedValue.dismiss()
-                    taskViewModel.uploadTask(withText: task.title, priority: task.priority.rawValue)
+                    taskViewModel.uploadTask(withText: taskTitle, priority: task.priority, deadline: task.deadline)
                 }, label: {
                     Text("Save task")
                 }).buttonStyle(.borderedProminent)
+                    .disabled(taskTitle.isEmpty)
             }
 
             Divider()
@@ -113,8 +102,3 @@ struct CreateTaskView: View {
     }
 }
 
-struct CreateTaskView_Previews: PreviewProvider {
-    static var previews: some View {
-        CreateTaskView()
-    }
-}

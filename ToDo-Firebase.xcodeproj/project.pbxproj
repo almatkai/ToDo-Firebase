@@ -31,6 +31,12 @@
 		3FEBBCE52969D14900EC888F /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FEBBCE42969D14900EC888F /* SignupView.swift */; };
 		3FEBBCE72969D15900EC888F /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FEBBCE62969D15900EC888F /* LoginView.swift */; };
 		3FEBBCEA2969D59600EC888F /* RoundedShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FEBBCE92969D59600EC888F /* RoundedShape.swift */; };
+		3FEDA34129A69EB100F24A13 /* ToDoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FEDA34029A69EB100F24A13 /* ToDoListView.swift */; };
+		3FEDA34329A69EC500F24A13 /* TaskCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FEDA34229A69EC500F24A13 /* TaskCellView.swift */; };
+		3FEDA34529A6AEB700F24A13 /* JustView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FEDA34429A6AEB700F24A13 /* JustView.swift */; };
+		3FEDA34729A6C9D300F24A13 /* SubTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FEDA34629A6C9D300F24A13 /* SubTask.swift */; };
+		3FEDA34929A6CA2C00F24A13 /* SubTaskService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FEDA34829A6CA2C00F24A13 /* SubTaskService.swift */; };
+		3FEDA34B29A6CB5700F24A13 /* SubTaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FEDA34A29A6CB5700F24A13 /* SubTaskViewModel.swift */; };
 		3FF4B1B6297C7636004DA3E2 /* RegisterNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF4B1B5297C7636004DA3E2 /* RegisterNameView.swift */; };
 		3FF4B1B8297C764B004DA3E2 /* RegisterEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF4B1B7297C764B004DA3E2 /* RegisterEmailView.swift */; };
 		3FF4B1BD297D30D1004DA3E2 /* Modifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF4B1BC297D30D1004DA3E2 /* Modifier.swift */; };
@@ -67,6 +73,12 @@
 		3FEBBCE42969D14900EC888F /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
 		3FEBBCE62969D15900EC888F /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		3FEBBCE92969D59600EC888F /* RoundedShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedShape.swift; sourceTree = "<group>"; };
+		3FEDA34029A69EB100F24A13 /* ToDoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListView.swift; sourceTree = "<group>"; };
+		3FEDA34229A69EC500F24A13 /* TaskCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCellView.swift; sourceTree = "<group>"; };
+		3FEDA34429A6AEB700F24A13 /* JustView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JustView.swift; sourceTree = "<group>"; };
+		3FEDA34629A6C9D300F24A13 /* SubTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubTask.swift; sourceTree = "<group>"; };
+		3FEDA34829A6CA2C00F24A13 /* SubTaskService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubTaskService.swift; sourceTree = "<group>"; };
+		3FEDA34A29A6CB5700F24A13 /* SubTaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubTaskViewModel.swift; sourceTree = "<group>"; };
 		3FF4B1B5297C7636004DA3E2 /* RegisterNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterNameView.swift; sourceTree = "<group>"; };
 		3FF4B1B7297C764B004DA3E2 /* RegisterEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterEmailView.swift; sourceTree = "<group>"; };
 		3FF4B1BC297D30D1004DA3E2 /* Modifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modifier.swift; sourceTree = "<group>"; };
@@ -121,11 +133,15 @@
 		3F3557332969B43200BBD756 /* ToDo-Firebase */ = {
 			isa = PBXGroup;
 			children = (
+				3FEDA34029A69EB100F24A13 /* ToDoListView.swift */,
+				3FEDA34229A69EC500F24A13 /* TaskCellView.swift */,
+				3FEDA34429A6AEB700F24A13 /* JustView.swift */,
+				3FEDA34A29A6CB5700F24A13 /* SubTaskViewModel.swift */,
+				3FF4B1CA297DA752004DA3E2 /* Model */,
 				3FF4B1C3297D8623004DA3E2 /* Services */,
 				3F6D60162986CB170067E09C /* CreateTask */,
 				3FF61A732977274F006C747C /* ProfilePage */,
 				3FF61A7229772733006C747C /* Home */,
-				3FF4B1CA297DA752004DA3E2 /* Model */,
 				3FF4B1C0297D5881004DA3E2 /* Utilities */,
 				3FF4B1B9297D3088004DA3E2 /* ExampleCODE */,
 				3FEBBCE82969D53D00EC888F /* ExtensionsAndTools */,
@@ -227,6 +243,7 @@
 				3FF4B1C4297D8647004DA3E2 /* ImageUploader.swift */,
 				3FF4B1C8297DA479004DA3E2 /* UserService.swift */,
 				3F81495829900C8F00CA784B /* TaskService.swift */,
+				3FEDA34829A6CA2C00F24A13 /* SubTaskService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -236,6 +253,7 @@
 			children = (
 				3FF4B1CB297DA76D004DA3E2 /* User.swift */,
 				3F814951298FB7D200CA784B /* Task.swift */,
+				3FEDA34629A6C9D300F24A13 /* SubTask.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -360,6 +378,7 @@
 				3FF4B1C5297D8647004DA3E2 /* ImageUploader.swift in Sources */,
 				3FF61A6F2976AAA0006C747C /* AuthTextFieldView.swift in Sources */,
 				3FF4B1C7297D9F42004DA3E2 /* ImageToUIImage.swift in Sources */,
+				3FEDA34729A6C9D300F24A13 /* SubTask.swift in Sources */,
 				3FF61A7A297729F2006C747C /* HomeView.swift in Sources */,
 				3F6D601C2986CDA40067E09C /* PaddingEdgeChoseable.swift in Sources */,
 				3FEBBCE52969D14900EC888F /* SignupView.swift in Sources */,
@@ -370,10 +389,12 @@
 				3F814950298FACF300CA784B /* HomeViewModel.swift in Sources */,
 				3FF61A712976AFC7006C747C /* AuthViewModel.swift in Sources */,
 				3F3557372969B43200BBD756 /* ContentView.swift in Sources */,
+				3FEDA34B29A6CB5700F24A13 /* SubTaskViewModel.swift in Sources */,
 				3FF61A7C29772A1B006C747C /* ProfileView.swift in Sources */,
 				3F81494E298FA7B600CA784B /* CreateTaskViewModel.swift in Sources */,
 				3FF4B1C9297DA479004DA3E2 /* UserService.swift in Sources */,
 				3F6D60182986CB470067E09C /* CreateTaskView.swift in Sources */,
+				3FEDA34929A6CA2C00F24A13 /* SubTaskService.swift in Sources */,
 				3F81495929900C8F00CA784B /* TaskService.swift in Sources */,
 				3F814952298FB7D200CA784B /* Task.swift in Sources */,
 				3F6D601E2986E6080067E09C /* GetAverageColorOfImage.swift in Sources */,
@@ -382,7 +403,10 @@
 				3FF4B1C2297D58A3004DA3E2 /* ImagePicker.swift in Sources */,
 				3F6D601A2986CC980067E09C /* ColorHEX.swift in Sources */,
 				3FF4B1B6297C7636004DA3E2 /* RegisterNameView.swift in Sources */,
+				3FEDA34529A6AEB700F24A13 /* JustView.swift in Sources */,
+				3FEDA34129A69EB100F24A13 /* ToDoListView.swift in Sources */,
 				3FF61A7E29772BF1006C747C /* MainTabView.swift in Sources */,
+				3FEDA34329A69EC500F24A13 /* TaskCellView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
