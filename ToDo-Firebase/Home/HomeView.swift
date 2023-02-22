@@ -8,11 +8,6 @@
 import SwiftUI
 import Kingfisher
 
-enum Sections: String, CaseIterable {
-    case pending = "Pending"
-    case completed = "Completed"
-}
-
 struct HomeView: View {
     
     @State private var addNewTask = false
@@ -25,23 +20,25 @@ struct HomeView: View {
     }
 
     var body: some View {
+        NavigationView{
             ZStack(alignment: .bottomTrailing) {
-                ScrollView{
-                    LazyVStack{
-                        ForEach(homeViewModel.tasks){task in
-                            VStack{
-                                Text(task.text)
-                            }
-                                .background(Color("skyBlue"))
-                                .padding(16)
-                                .onTapGesture {
-                                    if task.id != nil{
-                                        homeViewModel.deletetask(documentId: task.id ?? "No ID")
-                                    }
-                                }
-                        }
-                    }
-                }
+                TodoListView(homeViewModel: homeViewModel)
+//                ScrollView{
+//                    LazyVStack{
+//                        ForEach(homeViewModel.tasks){task in
+//                            VStack{
+//                                Text(task.text)
+//                            }
+//                                .background(Color("skyBlue"))
+//                                .padding(16)
+//                                .onTapGesture {
+//                                    if task.id != nil{
+//                                        homeViewModel.deletetask(documentId: task.id ?? "No ID")
+//                                    }
+//                                }
+//                        }
+//                    }
+//                }
                 Button{
                     addNewTask.toggle()
                 }label: {
@@ -66,5 +63,7 @@ struct HomeView: View {
             .toolbar(.visible)
             .transition(.slide)
             .animation(.easeOut(duration: 0.35))
+            .navigationTitle("Tasks")
         }
+    }
 }

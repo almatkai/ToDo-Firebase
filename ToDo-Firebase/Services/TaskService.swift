@@ -9,10 +9,10 @@ import Firebase
 
 struct TaskService{
     
-    func uploadTasks(text: String, priority: String, completion: @escaping(Bool) -> Void){
+    func uploadTasks(text: String, priority: String, deadline: Date, completion: @escaping(Bool) -> Void){
         guard let uid = Auth.auth().currentUser?.uid else{return}
         
-        let data = ["uid":uid, "text":text, "priority": priority, "isComplete":false, "timestamp":Timestamp(date: Date())] as [String : Any]
+        let data = ["uid":uid, "text":text, "priority": priority, "isComplete":false, "deadline": deadline, "timestamp":Timestamp(date: Date())] as [String : Any]
         
         Firestore.firestore().collection("tasks").document()
             .setData(data){error in
@@ -35,6 +35,32 @@ struct TaskService{
             }
     }
     
+    func updateData(documentID: String, fieldName: String, value: Any) {
+        Firestore.firestore().collection("tasks").document(documentID)
+            .updateData([fieldName: value]) { (error) in
+                if let error = error {
+                    print("Error updating data: \(error)")
+                } else {
+                    print("Data updated successfully")
+                }
+            }
+    }
+    
+    func updateMultipleFields(id: String, text: String, priority: String, deadline: Date) {
+        let db = Firestore.firestore()
+        let documentRef = db.collection("tasks").document(id)
+        documentRef.updateData([
+            "text": text,
+            "priority": priority,
+            "deadline": deadline
+        ]) { error in
+            if let error = error {
+                print("Error updating document: \(error.localizedDescription)")
+            } else {
+                print("Document updated successfully")
+            }
+        }
+    }
     func deleteTask(documentId: String){
         Firestore.firestore().collection("tasks")
             .document(documentId)
