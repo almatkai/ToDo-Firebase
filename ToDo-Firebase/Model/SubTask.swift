@@ -8,9 +8,7 @@
 import FirebaseFirestoreSwift
 import Firebase
 
-struct SubTask: Identifiable, Decodable, Hashable{
+struct SubTask: Identifiable, Decodable, Hashable, Encodable{
     @DocumentID var id: String?
     var text: String
-    let uid: String
-    let timestamp: Timestamp
 }

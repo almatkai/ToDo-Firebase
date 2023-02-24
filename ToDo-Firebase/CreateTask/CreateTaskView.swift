@@ -18,6 +18,7 @@ struct CreateTaskView: View {
     @State var task = TaskClass()
     
     @State var taskTitle = ""
+    @State var subtasks: [String] = []
     @State var subtask = ""
     
     private func priorityBackground(_ priority: String) -> Color {
@@ -56,7 +57,7 @@ struct CreateTaskView: View {
                     .environment(\.calendar, Self.calendar)
                 Button(action: {
 //                    presentationMode.wrappedValue.dismiss()
-                    taskViewModel.uploadTask(withText: taskTitle, priority: task.priority, deadline: task.deadline)
+                    taskViewModel.uploadTask(withText: taskTitle, priority: task.priority, deadline: task.deadline, subtasks: subtasks)
                 }, label: {
                     Text("Save task")
                 }).buttonStyle(.borderedProminent)
@@ -69,6 +70,8 @@ struct CreateTaskView: View {
                     .textFieldStyle(.plain)
                     .padding(.left, 18)
                 Button(action: {
+                    subtasks.append(subtask)
+                    subtask = ""
                 }, label: {
                     Text("Add")
                 }).buttonStyle(.borderedProminent)
@@ -77,22 +80,22 @@ struct CreateTaskView: View {
             //            ToFormsView()
             Spacer()
             
-//            List {
-//                ForEach(task.notes.indices, id: \.self) { index in
-//                    let note = task.notes[index]
-//                    HStack {
-//                        Text("\(index + 1)")
-//                            .frame(width: 25, height: 25)
-//                            .background(.orange)
-//                            .foregroundColor(.white
-//                            )
-//                            .clipShape(RoundedRectangle(cornerRadius: 6.0, style: .continuous))
-//                        Text(note.text)
-//                    }
-//                }
+            List {
+                ForEach(subtasks.indices, id: \.self) { index in
+                    let note = subtasks[index]
+                    HStack {
+                        Text("\(index + 1)")
+                            .frame(width: 25, height: 25)
+                            .background(.orange)
+                            .foregroundColor(.white
+                            )
+                            .clipShape(RoundedRectangle(cornerRadius: 6.0, style: .continuous))
+                        Text(note)
+                    }
+                }
 //                .onDelete(perform: $task.notes.remove)
-//                .listStyle(.plain)
-//            }.listStyle(.plain)
+                .listStyle(.plain)
+            }.listStyle(.plain)
         }.padding()
             .onReceive(taskViewModel.$didUploadTask){succes in
                 if succes {

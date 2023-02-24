@@ -6,20 +6,21 @@
 //
 
 import SwiftUI
+import Firebase
 
 struct JustView: View {
     @Environment(\.presentationMode) var presentationMode
     @Binding var isLinkActive: Bool
     
     @ObservedObject var homeViewModel: HomeViewModel
-    @ObservedObject var subtaskViewModel: SubTaskViewModel
+//    @ObservedObject var subtaskViewModel: SubTaskViewModel
     var task: Task
     
     //Date Picker
     init(isLinkActive: Binding<Bool>, homeViewModel: HomeViewModel, uid: String, task: Task) {
         self.homeViewModel = homeViewModel
         self.task = task
-        self.subtaskViewModel = SubTaskViewModel(uid: uid)
+//        self.subtaskViewModel = SubTaskViewModel(uid: uid)
         _taskTitle = State(initialValue: task.text)
         _deadline = State(initialValue: task.deadline)
         _priority = State(initialValue: task.priority)
@@ -28,12 +29,12 @@ struct JustView: View {
     }
     private func priorityBackground(_ priority: String) -> Color {
         switch priority {
-            case "low":
-                return .gray
-            case "medium":
-                return Color(hex: "e6c244")
-            case "high":
-                return .red
+        case "low":
+            return .gray
+        case "medium":
+            return Color(hex: "e6c244")
+        case "high":
+            return .red
         default:
             return .orange
         }
@@ -79,66 +80,46 @@ struct JustView: View {
                     .onAppear{
                         deadline = task.deadline
                     }
-//                Button(action: {
-////                    presentationMode.wrappedValue.dismiss()
-//
-//                }, label: {
-//                    Text("Save task")
-//                }).buttonStyle(.borderedProminent)
-//                    .disabled(taskTitle.isEmpty)
-                    
             }
-
             Divider()
             HStack{
                 TextField("Enter subtask", text: $subtask, axis: .vertical)
                     .textFieldStyle(.plain)
                     .padding(.left, 18)
                 Button(action: {
-                    subtaskViewModel.uploadTask(withText: subtask, uid: task.id!)
+                    //                    subtaskViewModel.uploadTask(withText: subtask, uid: task.id!)
+                    appendSubtask(uid: task.id!, subtaskText: subtask)
                     subtask = ""
                 }, label: {
                     Text("Add")
                 }).buttonStyle(.borderedProminent)
                     .disabled(subtask.isEmpty)
-            }.padding(.top, 10)
+            }.padding(15)
             //            ToFormsView()
             Spacer()
             
-//            List {
-//                ForEach(subtaskViewModel.tasks.indices, id: \.self) { index in
-//                    let note = subtaskViewModel.tasks[index]
-//                    HStack {
-//                        Text("\(index + 1)")
-//                            .frame(width: 25, height: 25)
-//                            .background(.orange)
-//                            .foregroundColor(.white
-//                            )
-//                            .clipShape(RoundedRectangle(cornerRadius: 6.0, style: .continuous))
-//                        Text(note.text)
-//                    }
-//                }
-////                .onDelete(perform: $task.notes.remove)
-//                .listStyle(.plain)
-//            }.listStyle(.plain)
-            List{
-//                ForEach(subtaskViewModel.tasks, id: \.self) { task in
-//                    HStack{
-//                        Text(task.text)
-//                        Text(task.uid)
-//                    }
-//
-//                }
-                ForEach(0 ..< 10) { _ in
-                    Text("Hello")
-//                    \(subtaskViewModel.tasks[0].text)
+            List {
+                ForEach(task.subtask.indices, id: \.self) { index in
+                    let note = task.subtask[index]
+                    if(note != "1"){
+                        HStack {
+                            Text("\(index + 1)")
+                                .frame(width: 25, height: 25)
+                                .background(.orange)
+                                .foregroundColor(.white
+                                )
+                                .clipShape(RoundedRectangle(cornerRadius: 6.0, style: .continuous))
+                            Text(note)
+                        }
+                    }
                 }
-            }
-        }
-            
-            .onReceive(subtaskViewModel.$tasks){_ in
-                subtaskViewModel.fetchTasks(uid: task.uid)
-            }
+            //       .onDelete(perform: $task.notes.remove)
+                .listStyle(.plain)
+            }.listStyle(.plain)
+        
+//            .onReceive(subtaskViewModel.$tasks){_ in
+//                subtaskViewModel.fetchTasks(uid: task.uid)
+//            }
             .navigationBarBackButtonHidden(true)
             .navigationBarItems(
                 leading: Button(action: {
@@ -150,5 +131,28 @@ struct JustView: View {
                         .lineLimit(1)
                 })
             )
+        }
+    }
+    func appendSubtask(uid: String, subtaskText: String){
+        let db = Firestore.firestore()
+        
+        // Get the existing task object from Firestore
+        db.collection("tasks").document(uid).getDocument { (document, error) in
+            guard let document = document, document.exists, var task = try? document.data(as: Task.self) else {
+                print("Task does not exist or failed to retrieve")
+                return
+            }
+            
+            // Append the new subtask to the task's subtasks array
+            task.subtask.append(subtaskText)
+            // Save the updated task object back to Firestore
+            do {
+                try db.collection("tasks").document(uid).setData(from: task)
+                print("Subtask added successfully")
+            } catch let error {
+                print("Error adding subtask: \(error.localizedDescription)")
+            }
+        }
+        
     }
 }

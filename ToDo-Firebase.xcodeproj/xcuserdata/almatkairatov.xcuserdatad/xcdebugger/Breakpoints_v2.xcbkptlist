@@ -20,5 +20,128 @@
             landmarkType = "14">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9D7E7A31-56DB-4351-8A0D-26F510C321EC"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ToDo-Firebase/JustView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "18"
+            endingLineNumber = "18"
+            landmarkName = "JustView"
+            landmarkType = "14">
+            <Locations>
+               <Location
+                  uuid = "9D7E7A31-56DB-4351-8A0D-26F510C321EC - 95240cf240bd2696"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "property wrapper backing initializer of ToDo_Firebase.JustView.subTaskCollection : Swift.Array&lt;ToDo_Firebase.SubTask&gt;"
+                  moduleName = "ToDo-Firebase"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/almatkairatov/Desktop/ToDo-Firebase/ToDo-Firebase/JustView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17"
+                  offsetFromSymbolStart = "28">
+               </Location>
+               <Location
+                  uuid = "9D7E7A31-56DB-4351-8A0D-26F510C321EC - 2b6cb3a90dfbc818"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ToDo_Firebase.JustView.subTaskCollection.getter : Swift.Array&lt;ToDo_Firebase.SubTask&gt;"
+                  moduleName = "ToDo-Firebase"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/almatkairatov/Desktop/ToDo-Firebase/ToDo-Firebase/JustView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17"
+                  offsetFromSymbolStart = "136">
+               </Location>
+               <Location
+                  uuid = "9D7E7A31-56DB-4351-8A0D-26F510C321EC - 8b577562f6d9c024"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ToDo_Firebase.JustView.subTaskCollection.setter : Swift.Array&lt;ToDo_Firebase.SubTask&gt;"
+                  moduleName = "ToDo-Firebase"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/almatkairatov/Desktop/ToDo-Firebase/ToDo-Firebase/JustView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17"
+                  offsetFromSymbolStart = "156">
+               </Location>
+               <Location
+                  uuid = "9D7E7A31-56DB-4351-8A0D-26F510C321EC - 774e610ef7163e15"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ToDo_Firebase.JustView.subTaskCollection.modify : Swift.Array&lt;ToDo_Firebase.SubTask&gt;"
+                  moduleName = "ToDo-Firebase"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/almatkairatov/Desktop/ToDo-Firebase/ToDo-Firebase/JustView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17"
+                  offsetFromSymbolStart = "0">
+               </Location>
+               <Location
+                  uuid = "9D7E7A31-56DB-4351-8A0D-26F510C321EC - a53a3bff56ccd200"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ToDo_Firebase.JustView.subTaskCollection.modify : Swift.Array&lt;ToDo_Firebase.SubTask&gt; with unmangled suffix &quot;.resume.0&quot;"
+                  moduleName = "ToDo-Firebase"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/almatkairatov/Desktop/ToDo-Firebase/ToDo-Firebase/JustView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17"
+                  offsetFromSymbolStart = "40">
+               </Location>
+               <Location
+                  uuid = "9D7E7A31-56DB-4351-8A0D-26F510C321EC - 9fa0ed3f7daab162"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ToDo_Firebase.JustView.$subTaskCollection.getter : SwiftUI.Binding&lt;Swift.Array&lt;ToDo_Firebase.SubTask&gt;&gt;"
+                  moduleName = "ToDo-Firebase"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/almatkairatov/Desktop/ToDo-Firebase/ToDo-Firebase/JustView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17"
+                  offsetFromSymbolStart = "152">
+               </Location>
+               <Location
+                  uuid = "9D7E7A31-56DB-4351-8A0D-26F510C321EC - 377a7e73b4dfc05b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ToDo_Firebase.JustView.init(isLinkActive: SwiftUI.Binding&lt;Swift.Bool&gt;, homeViewModel: ToDo_Firebase.HomeViewModel, task: ToDo_Firebase.Task) -&gt; ToDo_Firebase.JustView"
+                  moduleName = "ToDo-Firebase"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/almatkairatov/Desktop/ToDo-Firebase/ToDo-Firebase/JustView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17"
+                  offsetFromSymbolStart = "408">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

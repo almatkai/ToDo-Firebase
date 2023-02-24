@@ -9,11 +9,9 @@ import Firebase
 
 struct TaskService{
     
-    func uploadTasks(text: String, priority: String, deadline: Date, completion: @escaping(Bool) -> Void){
+    func uploadTasks(text: String, priority: String, deadline: Date, subtasks: [String], completion: @escaping(Bool) -> Void){
         guard let uid = Auth.auth().currentUser?.uid else{return}
-        
-        let data = ["uid":uid, "text":text, "priority": priority, "isComplete":false, "deadline": deadline, "timestamp":Timestamp(date: Date())] as [String : Any]
-        
+        let data = ["uid":uid, "text":text, "priority": priority, "isComplete":false, "deadline": deadline, "timestamp":Timestamp(date: Date()), "subtask":subtasks] as [String : Any]
         Firestore.firestore().collection("tasks").document()
             .setData(data){error in
                 if let error = error {

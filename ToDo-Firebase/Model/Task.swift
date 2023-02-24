@@ -8,7 +8,7 @@
 import FirebaseFirestoreSwift
 import Firebase
 
-struct Task: Identifiable, Decodable{
+struct Task: Identifiable, Decodable, Encodable{
     @DocumentID var id: String?
     var text: String
     let timestamp: Timestamp
@@ -16,6 +16,8 @@ struct Task: Identifiable, Decodable{
     var priority: String
     var isComplete: Bool
     var deadline: Date
+    var subtask: [String]
+    
 }
 
 class TaskClass: Identifiable {
