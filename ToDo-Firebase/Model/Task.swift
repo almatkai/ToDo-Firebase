@@ -18,11 +18,18 @@ struct Task: Identifiable, Decodable, Encodable{
     var deadline: Date
     var subtask: [String]
     
+    var sortedSubtask: [String] {
+        subtask.sorted(by: >)
+    }
 }
 
 class TaskClass: Identifiable {
-    var title = ""
+    var taskTitle = ""
     var priority = "medium"
-    var timestamp: Timestamp = Timestamp(date: Date())
-    var deadline: Date = Date.now
+    var deadline: Date = Date()
+    var subtasks: [String] = []
+    var subtask = ""
+    var sortedSubtask: [String] {
+        String(subtask.sorted(by: >)).split(separator: " ").map(String.init)
+    }
 }

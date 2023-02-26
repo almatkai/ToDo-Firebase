@@ -61,21 +61,8 @@ struct TodoListView: View, Animatable {
 
             }
         }
-        .listStyle(.plain)
-            .frame(alignment: .center)
-//            .onAppear{
-//                DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
-//                            hasTimeElapsed = true
-//                        }
-//                if(hasTimeElapsed){
-//                    for task in tasks {
-//                        if(task.title == ""){
-//                            $tasks.remove(task)
-//                        }
-//                    }
-//                }
-//            }
-            .transition(.slide)
-            .animation(.easeOut(duration: 0.45))
+        .frame(alignment: .center)
+        .transition(.slide)
+        .animation(.easeOut(duration: 0.45))
     }
 }

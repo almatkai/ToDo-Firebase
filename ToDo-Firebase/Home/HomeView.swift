@@ -19,38 +19,50 @@ struct HomeView: View {
         self.homeViewModel = HomeViewModel(user: user)
     }
 
+    @State private var isAnimating = false
+    @State private var isShowingPulse = false
+    func startPulse(duration: Double) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + duration) {
+                self.isShowingPulse = true
+            }
+        }
     var body: some View {
         NavigationView{
             ZStack(alignment: .bottomTrailing) {
                 TodoListView(homeViewModel: homeViewModel)
-//                ScrollView{
-//                    LazyVStack{
-//                        ForEach(homeViewModel.tasks){task in
-//                            VStack{
-//                                Text(task.text)
-//                            }
-//                                .background(Color("skyBlue"))
-//                                .padding(16)
-//                                .onTapGesture {
-//                                    if task.id != nil{
-//                                        homeViewModel.deletetask(documentId: task.id ?? "No ID")
-//                                    }
-//                                }
-//                        }
-//                    }
-//                }
                 Button{
                     addNewTask.toggle()
                 }label: {
-                    Image("newTask")
-                        .resizable()
-                        .renderingMode(.template)
-                        .background(Color("forgroundSkyBlue"))
-                        .foregroundColor(Color("whitegrey"))
-                        .scaledToFill()
-                        .foregroundColor(.white)
-                        .frame(width: 60, height: 60)
-                        .clipShape(Circle())
+                    ZStack(alignment: .center) {
+                        Circle()
+                            .fill(Color.blue.opacity(isShowingPulse ? 0.1 : 0))
+                            .frame(width: 92, height: 92)
+                            .animation(.easeInOut(duration: 1.5).repeatForever(autoreverses: true))
+                            .onAppear {
+                                self.isAnimating = true
+                                self.startPulse(duration: 0.3)
+                            }
+                        Circle()
+                            .fill(Color.blue.opacity(isShowingPulse ? 0.3 : 0.1))
+                            .frame(width: 86, height: 86)
+                            .animation(.easeInOut(duration: 1.5).repeatForever(autoreverses: true))
+                            .onAppear {
+                                self.isAnimating = true
+                                self.startPulse(duration: 0.3)
+                            }
+                        Circle()
+                            .fill(Color.blue.opacity(isShowingPulse ? 0.5 : 0.2))
+                            .frame(width: 74, height: 74)
+                            .animation(.easeInOut(duration: 1.5).repeatForever(autoreverses: true))
+                            .onAppear {
+                                self.isAnimating = true
+                                self.startPulse(duration: 0.3)
+                            }
+                        Image("plus")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 64, height: 64)
+                    }
                 }
                 .sheet(isPresented: $addNewTask){
                     CreateTaskView()
@@ -61,8 +73,6 @@ struct HomeView: View {
                 homeViewModel.fetchTasks()
             }
             .toolbar(.visible)
-            .transition(.slide)
-            .animation(.easeOut(duration: 0.35))
             .navigationTitle("Tasks")
         }
     }

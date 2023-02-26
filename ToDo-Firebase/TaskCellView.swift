@@ -12,17 +12,6 @@ struct TaskCellView: View {
     @ObservedObject var homeViewModel: HomeViewModel
     let task: Task
     @State var offsetY : CGFloat = 0
-        
-    private func priorityBackground(_ priority: String) -> Color {
-        switch priority {
-            case "low":
-                return .gray
-            case "medium":
-                return Color(hex: "f7cf4c")
-            default:
-                return .red
-        }
-    }
     @State var isLinkActive = false
     var body: some View {
         
@@ -72,43 +61,9 @@ struct TaskCellView: View {
         .onTapGesture {
             self.isLinkActive = true
         }
-        .background(NavigationLink(destination: JustView(isLinkActive: $isLinkActive, homeViewModel: homeViewModel, uid: task.id!, task: task), isActive: $isLinkActive) {
+        .background(NavigationLink(destination: JustView(isLinkActive: $isLinkActive, homeViewModel: homeViewModel, task: task), isActive: $isLinkActive) {
             EmptyView()
         })
-//        NavigationLink {
-//            JustView()
-//        } label: {
-//            VStack{
-//                HStack {
-//                    Image(systemName: task.isComplete ? "checkmark.square": "square")
-//                        .frame(width: 20, height: 20)
-//                        .foregroundColor(task.isComplete ? .green : .gray)
-//                        .onTapGesture {
-//                            let isComplete = (task.isComplete) ? false : true
-//                            homeViewModel.updateTask(id: task.id!, fieldName: "isComplete", value: isComplete)
-//                        }
-//                    Text(task.text)
-//                        .lineLimit(2)
-//                    Spacer()
-//                    Text(task.priority)
-//                        .padding(6)
-//                        .frame(width: 75)
-//                        .background(priorityBackground(task.priority))
-//                        .foregroundColor(.white)
-//                        .clipShape(RoundedRectangle(cornerRadius: 10.0, style: .continuous))
-//                }
-//                HStack{
-//                    Spacer()
-//                    HStack{
-//                        Spacer()
-//                        Text(task.deadline, style: .time)
-//                            .font(.system(size:12))
-//                        Text(task.deadline, style: .date)
-//                            .font(.system(size:12))
-//                    }
-//                }
-//            }
-//        }
     }
 }
 

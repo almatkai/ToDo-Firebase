@@ -22,6 +22,7 @@ struct MainTabView: View {
                     .tabItem {
                         Image(systemName: "house")
                     }.tag(0)
+                    .animation(.easeOut(duration: 0.15))
                 ProfileView()
                     .onTapGesture {
                         self.index = 1
@@ -29,7 +30,9 @@ struct MainTabView: View {
                     .tabItem {
                         Image(systemName: "person")
                     }.tag(1)
-            }.toolbar(){
+                    .animation(.easeOut(duration: 0.15))
+            }
+            .toolbar(){
                 if let user = authViewModel.currentUser{
                     NavigationLink{
                         ProfileView()

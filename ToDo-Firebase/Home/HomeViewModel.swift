@@ -26,10 +26,16 @@ class HomeViewModel: ObservableObject{
     func updateTask(id: String, fieldName: String, value: Any){
         service.updateData(documentID: id, fieldName: fieldName, value: value)
     }
+    func updateTask(_ task: Task){
+        service.updateTask(task)
+    }
     func updateAllFields(id: String, text: String, priority: String, deadline: Date){
         service.updateMultipleFields(id: id, text: text, priority: priority, deadline: deadline)
     }
     func deletetask(documentId: String){
         service.deleteTask(documentId: documentId)
+    }
+    func deleteSubtask(index: Int, task: Task) {
+        service.deleteSubtask(index, from: task)
     }
 }

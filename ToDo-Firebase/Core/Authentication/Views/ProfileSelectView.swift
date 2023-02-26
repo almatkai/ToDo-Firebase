@@ -30,22 +30,27 @@ struct ProfileSelectView: View {
                 showImagePicker.toggle()
             } label: {
                 if let image = image{
-                     image
-                        .resizable()
-                        .modifier(ProfileImageModifier())
-                        .clipShape(Circle())
-                        .overlay{
-                            ZStack {
+                    ZStack{
+                        image
+                            .resizable()
+                            .modifier(ProfileImageModifier())
+                            .clipShape(Circle())
+                            .padding
+                        VStack {
+                            Spacer()
+                            HStack {
+                                Spacer()
                                 Text("Change")
                                     .font(.callout)
                                     .padding(6)
                                     .foregroundColor(.white)
-                            }.background(Color.black)
-                            .opacity(0.8)
-                            .cornerRadius(10.0)
-                            .padding(6)
-                            .offset(y:60)
+                                    .background(Color.black.opacity(0.8))
+                                    .cornerRadius(10.0)
+                                    .padding(6)
+                            }
                         }
+                        .offset(y: 60)
+                    }
                 }else {
                     Image("addProfilePic")
                         .resizable()

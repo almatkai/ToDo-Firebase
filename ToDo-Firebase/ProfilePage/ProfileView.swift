@@ -20,6 +20,7 @@ struct ProfileView: View {
                         .frame(width: 100, height: 100, alignment: .center)
                         .cornerRadius(50)
                         .overlay(RoundedRectangle(cornerRadius: 50).stroke(Color("skyBlue"), lineWidth: 3), alignment: .center)
+                        .animation(.none)
                     VStack(alignment: .leading){
                         Text("Username: @\(user.username)")
                         Text("Fullname: \(user.fullname)")
@@ -35,8 +36,7 @@ struct ProfileView: View {
                 .modifier(ClassicButtonModifier(width: .long))
                 .shadow(color: Color("shadowGray").opacity(0.7), radius: 7, x: 0, y: 0)
                 .padding(.bottom, 20)
-            }.transition(.slide)
-                .animation(.easeOut(duration: 0.35))
+            }
         }
     }
 }

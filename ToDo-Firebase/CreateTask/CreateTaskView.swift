@@ -14,37 +14,35 @@ struct CreateTaskView: View {
     ///
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var taskViewModel = CreateTaskViewModel()
-    ///
-    @State var task = TaskClass()
     
     @State var taskTitle = ""
+    @State var priority = "medium"
+    @State var deadline: Date = Date()
     @State var subtasks: [String] = []
     @State var subtask = ""
-    
-    private func priorityBackground(_ priority: String) -> Color {
-        switch priority {
-            case "low":
-                return .gray
-            case "medium":
-                return Color(hex: "e6c244")
-            case "high":
-                return .red
-        default:
-            return .orange
-        }
-    }
-    
+
     var body: some View {
         VStack {
             HStack{
-                TextField("Enter note", text: $taskTitle, axis: .vertical)
-                    .textFieldStyle(.plain)
-                    .font(.system(size: 20))
+                if #available(iOS 16.0, *) {
+                    TextField("Enter note", text: $taskTitle, axis: .vertical)
+                        .textFieldStyle(.plain)
+                        .font(.system(size: 20))
+                        .padding()
+                } else {
+                    VStack {
+                        Text("Enter note:")
+                        TextField("", text: $taskTitle)
+                            .textFieldStyle(.roundedBorder)
+                            .font(.system(size: 20))
+                            .padding(.vertical, 10)
+                    }
                     .padding()
-                Picker("Priority", selection: $task.priority) {
-                    Text("low").tag("low").foregroundColor(.gray).font(.system(size:14)).fontWeight(.bold)
-                    Text("medium").tag("medium").foregroundColor(.yellow).font(.system(size:14)).fontWeight(.bold)
-                    Text("high").tag("high").foregroundColor(.red).font(.system(size:14)).fontWeight(.bold)
+                }
+                Picker("Priority", selection: $priority) {
+                    Text("low").tag("low").foregroundColor(.gray).font(.system(size: 14, weight: .bold))
+                    Text("medium").tag("medium").foregroundColor(.yellow).font(.system(size: 14, weight: .bold))
+                    Text("high").tag("high").foregroundColor(.red).font(.system(size: 14, weight: .bold))
                     
                 }.pickerStyle(.wheel)
                     .frame(width: 100, height: 120)
@@ -52,12 +50,11 @@ struct CreateTaskView: View {
                     .font(.headline)
             }
             HStack{
-                DatePicker("", selection: $task.deadline)
+                DatePicker("", selection: $deadline)
                     .environment(\.locale, Self.locale)
                     .environment(\.calendar, Self.calendar)
                 Button(action: {
-//                    presentationMode.wrappedValue.dismiss()
-                    taskViewModel.uploadTask(withText: taskTitle, priority: task.priority, deadline: task.deadline, subtasks: subtasks)
+                    taskViewModel.uploadTask(withText: taskTitle, priority: priority, deadline: deadline, subtasks: subtasks)
                 }, label: {
                     Text("Save task")
                 }).buttonStyle(.borderedProminent)
@@ -77,12 +74,11 @@ struct CreateTaskView: View {
                 }).buttonStyle(.borderedProminent)
                     .disabled(subtask.isEmpty)
             }
-            //            ToFormsView()
             Spacer()
             
             List {
-                ForEach(subtasks.indices, id: \.self) { index in
-                    let note = subtasks[index]
+                ForEach(subtasks.sorted(by: >).indices, id: \.self) { index in
+                    let note = subtasks.sorted(by: >)[index]
                     HStack {
                         Text("\(index + 1)")
                             .frame(width: 25, height: 25)
@@ -93,9 +89,13 @@ struct CreateTaskView: View {
                         Text(note)
                     }
                 }
-//                .onDelete(perform: $task.notes.remove)
+                .onDelete{ indexSet in
+                    guard let subtaskIndex = indexSet.first else { return }
+                    subtasks.remove(at: subtaskIndex)
+                }
                 .listStyle(.plain)
             }.listStyle(.plain)
+
         }.padding()
             .onReceive(taskViewModel.$didUploadTask){succes in
                 if succes {

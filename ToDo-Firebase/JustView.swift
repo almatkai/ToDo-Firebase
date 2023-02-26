@@ -8,37 +8,29 @@
 import SwiftUI
 import Firebase
 
+
+func priorityBackground(_ priority: String) -> Color {
+    switch priority {
+    case "low":
+        return .gray
+    case "medium":
+        return Color(hex: "e6c244")
+    case "high":
+        return .red
+    default:
+        return .orange
+    }
+}
+
 struct JustView: View {
+    
     @Environment(\.presentationMode) var presentationMode
     @Binding var isLinkActive: Bool
     
     @ObservedObject var homeViewModel: HomeViewModel
-//    @ObservedObject var subtaskViewModel: SubTaskViewModel
     var task: Task
     
-    //Date Picker
-    init(isLinkActive: Binding<Bool>, homeViewModel: HomeViewModel, uid: String, task: Task) {
-        self.homeViewModel = homeViewModel
-        self.task = task
-//        self.subtaskViewModel = SubTaskViewModel(uid: uid)
-        _taskTitle = State(initialValue: task.text)
-        _deadline = State(initialValue: task.deadline)
-        _priority = State(initialValue: task.priority)
-        _subtask = State(initialValue: "")
-        _isLinkActive = isLinkActive
-    }
-    private func priorityBackground(_ priority: String) -> Color {
-        switch priority {
-        case "low":
-            return .gray
-        case "medium":
-            return Color(hex: "e6c244")
-        case "high":
-            return .red
-        default:
-            return .orange
-        }
-    }
+
     static let calendar = Calendar(identifier: .gregorian)
     static let locale = Locale(identifier: "en_GB")
     ///
@@ -87,7 +79,6 @@ struct JustView: View {
                     .textFieldStyle(.plain)
                     .padding(.left, 18)
                 Button(action: {
-                    //                    subtaskViewModel.uploadTask(withText: subtask, uid: task.id!)
                     appendSubtask(uid: task.id!, subtaskText: subtask)
                     subtask = ""
                 }, label: {
@@ -95,31 +86,28 @@ struct JustView: View {
                 }).buttonStyle(.borderedProminent)
                     .disabled(subtask.isEmpty)
             }.padding(15)
-            //            ToFormsView()
             Spacer()
             
             List {
-                ForEach(task.subtask.indices, id: \.self) { index in
-                    let note = task.subtask[index]
-                    if(note != "1"){
+                ForEach(task.sortedSubtask.indices, id: \.self) { index in
+                    let note = task.sortedSubtask[index]
+                    if(note != ""){
                         HStack {
                             Text("\(index + 1)")
                                 .frame(width: 25, height: 25)
-                                .background(.orange)
-                                .foregroundColor(.white
-                                )
+                                .background(randomColor())
+                                .foregroundColor(.white)
                                 .clipShape(RoundedRectangle(cornerRadius: 6.0, style: .continuous))
                             Text(note)
-                        }
+                        }.animation(.easeOut)
                     }
                 }
-            //       .onDelete(perform: $task.notes.remove)
+                .onDelete{ indexSet in
+                    guard let subtaskIndex = indexSet.first else { return }
+                    homeViewModel.deleteSubtask(index: task.subtask.count - 1 - subtaskIndex, task: task)
+                }
                 .listStyle(.plain)
             }.listStyle(.plain)
-        
-//            .onReceive(subtaskViewModel.$tasks){_ in
-//                subtaskViewModel.fetchTasks(uid: task.uid)
-//            }
             .navigationBarBackButtonHidden(true)
             .navigationBarItems(
                 leading: Button(action: {
@@ -127,22 +115,21 @@ struct JustView: View {
                     self.isLinkActive = false
                 }, label: {
                     Image(systemName: "chevron.backward")
-                    Text(task.text)
+                    Text("Back")
                         .lineLimit(1)
                 })
             )
+            .animation(.easeOut(duration: 0.25))
         }
     }
     func appendSubtask(uid: String, subtaskText: String){
         let db = Firestore.firestore()
-        
         // Get the existing task object from Firestore
         db.collection("tasks").document(uid).getDocument { (document, error) in
             guard let document = document, document.exists, var task = try? document.data(as: Task.self) else {
                 print("Task does not exist or failed to retrieve")
                 return
             }
-            
             // Append the new subtask to the task's subtasks array
             task.subtask.append(subtaskText)
             // Save the updated task object back to Firestore
